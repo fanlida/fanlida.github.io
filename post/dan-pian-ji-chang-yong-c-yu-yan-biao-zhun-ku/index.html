@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>单片机自适应波特率实现思路 | 范丽达的网页</title>
+<title>单片机常用C语言标准库 | 范丽达的网页</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,14 +24,17 @@
 
 
 
-    <meta name="description" content="自适应波特率思路：
-   将串口接收IO电平状态进行定时器计时，计算出最小脉宽时长，即一帧时长，就可算出其波特率值。 
+    <meta name="description" content="&lt;string.h&gt;
+字符串长度
 
-缺点：
-   类似 00110011 这样的码，无法准确测出；
-   引导码最好用 类似0101 0101 这种码；
-..." />
-    <meta name="keywords" content="STM32" />
+int strlen(char *d)
+返回字符串d的长度，不包括终止符NULL
+
+字符串连接函数
+
+char *strcat(char*d,char*s)
+连接字符串s到字符串d，返回字符串..." />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div id="app" class="main">
@@ -102,34 +105,57 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">单片机自适应波特率实现思路</h2>
+            <h2 class="post-title">单片机常用C语言标准库</h2>
             <div class="post-date">2020-05-07</div>
             
             <div class="post-content" v-pre>
-              <h5 id="自适应波特率思路">自适应波特率思路：</h5>
-<pre><code>   将串口接收IO电平状态进行定时器计时，计算出最小脉宽时长，即一帧时长，就可算出其波特率值。 
-</code></pre>
-<h5 id="缺点">缺点：</h5>
-<pre><code>   类似 00110011 这样的码，无法准确测出；
-   引导码最好用 类似0101 0101 这种码；
-   最好有相关的引导码，或者加长检测周期；</code></pre>
+              <p>&lt;string.h&gt;</p>
+<h3 id="字符串长度">字符串长度</h3>
+<ol>
+<li><code>int strlen(char *d)</code><br>
+返回字符串d的长度，不包括终止符NULL</li>
+</ol>
+<h3 id="字符串连接函数">字符串连接函数</h3>
+<ol>
+<li><code>char *strcat(char*d,char*s)</code><br>
+连接字符串s到字符串d，返回字符串d</li>
+<li><code>char *strncat(char*d,char*s,int n)</code><br>
+连接字符串s中至多n个字符到字符串d，返回字符串d</li>
+</ol>
+<h3 id="字符串复制函数">字符串复制函数</h3>
+<ol start="4">
+<li><code>char *strcpy(char *d , char *s)</code><br>
+复制字符串s到字符串d，返回字符串d</li>
+<li><code>char *strncpy(char *d,char *s,int n)</code><br>
+复制字符串s中至多n个字符到字符串d；如果s小于n个字符，用\0补上，返回字符串d；</li>
+<li><code>void *memcpy(void *d, void *s, int n)</code><br>
+从s复制n个字符到d，返回字符串d</li>
+<li><code>void *memmove(void *d, void *s, int n)</code><br>
+和memcpy相同，即使d和s部分相同也运行</li>
+</ol>
+<h3 id="字符串查找函数">字符串查找函数</h3>
+<ol start="8">
+<li><code>char *strstr(char *d, char*s)</code><br>
+返回一个指向字符串d中字符s第一次出现的指针；或者如果没有找到s，<br>
+则返回指向NULL的指针；</li>
+</ol>
+<h3 id="字符串填充函数">字符串填充函数</h3>
+<ol start="9">
+<li><code>void *memset (void *d; char c, int n)</code><br>
+使用n个字符c填充void类型变量d；<br>
+<code>unsigned char str[8];</code><br>
+<code>memset(str,0x12,4);</code><br>
+<code>str={0x12,0x12,0x12,0x12,0,0,0,0};</code></li>
+</ol>
 
             </div>
-            
-              <div class="tag-container">
-                
-                  <a href="https://fanlida.github.io/tag/ZT5_adjO6/" class="tag">
-                    STM32
-                  </a>
-                
-              </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://fanlida.github.io/post/stm32-nei-cun-qu-fen-pei-jiang-jie/">
+                <a href="https://fanlida.github.io/post/dan-pian-ji-zi-gua-ying-bo-te-lu-shi-xian-si-lu/">
                   <h3 class="post-title">
-                    STM32内存区分配讲解
+                    单片机自适应波特率实现思路
                   </h3>
                 </a>
               </div>
