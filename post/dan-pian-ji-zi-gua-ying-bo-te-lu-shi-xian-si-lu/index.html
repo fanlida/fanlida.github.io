@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://fanlida.github.io//favicon.ico?v=1588855658669">
+<link rel="shortcut icon" href="https://fanlida.github.io//favicon.ico?v=1588856500487">
 <link rel="stylesheet" href="https://fanlida.github.io//styles/main.css">
 
 
@@ -25,12 +25,12 @@
 
 
     <meta name="description" content="自适应波特率思路：
-   将串口接收IO电平状态进行定时器计时，计算出最小脉宽时长，即一帧时长，就可算出其波特率值。 
+将串口接收IO电平状态进行定时器计时，计算出最小脉宽时长，即一帧时长，就可算出其波特率值。
 
 缺点：
-   类似 00110011 这样的码，无法准确测出；
-   引导码最好用 类似0101 0101 这种码；
-..." />
+类似 00110011 这样的码，无法准确测出；
+引导码最好用 类似0101 0101 这种码；
+最好有相关的引导码，..." />
     <meta name="keywords" content="STM32" />
   </head>
   <body>
@@ -40,7 +40,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://fanlida.github.io/">
-        <img src="https://fanlida.github.io//images/avatar.png?v=1588855658669" class="site-logo">
+        <img src="https://fanlida.github.io//images/avatar.png?v=1588856500487" class="site-logo">
         <h1 class="site-title">范丽达的网页</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -106,13 +106,13 @@
             <div class="post-date">2020-05-07</div>
             
             <div class="post-content" v-pre>
-              <h5 id="自适应波特率思路">自适应波特率思路：</h5>
-<pre><code>   将串口接收IO电平状态进行定时器计时，计算出最小脉宽时长，即一帧时长，就可算出其波特率值。 
-</code></pre>
-<h5 id="缺点">缺点：</h5>
-<pre><code>   类似 00110011 这样的码，无法准确测出；
-   引导码最好用 类似0101 0101 这种码；
-   最好有相关的引导码，或者加长检测周期；</code></pre>
+              <h3 id="自适应波特率思路">自适应波特率思路：</h3>
+<p>将串口接收IO电平状态进行定时器计时，计算出最小脉宽时长，即一帧时长，就可算出其波特率值。<br>
+<br></p>
+<h3 id="缺点">缺点：</h3>
+<p>类似 00110011 这样的码，无法准确测出；<br>
+引导码最好用 类似0101 0101 这种码；<br>
+最好有相关的引导码，或者加长检测周期；</p>
 
             </div>
             
