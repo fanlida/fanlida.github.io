@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>标签列表 | 范丽达的网页</title>
+<title>单片机自适应波特率实现思路 | 范丽达的网页</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -12,13 +12,26 @@
 <link rel="stylesheet" href="https://fanlida.github.io//styles/main.css">
 
 
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
 
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 
 
-    <meta name="description" content="范丽达的网页">
+    <meta name="description" content="自适应波特率思路：
+   将串口接收IO电平状态进行定时器计时，计算出最小脉宽时长，即一帧时长，就可算出其波特率值。 
+
+缺点：
+   类似 00110011 这样的码，无法准确测出；
+   引导码最好用 类似0101 0101 这种码；
+..." />
+    <meta name="keywords" content="STM32" />
   </head>
   <body>
     <div id="app" class="main">
@@ -88,12 +101,50 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="tag-list-title">标签列表</h2>
-          <div class="tags-container">
+          <div class="post-detail">
+            <h2 class="post-title">单片机自适应波特率实现思路</h2>
+            <div class="post-date">2020-05-07</div>
             
-              <a class="tag" href="https://fanlida.github.io/tag/ZT5_adjO6/">STM32</a>
+            <div class="post-content" v-pre>
+              <h5 id="自适应波特率思路">自适应波特率思路：</h5>
+<pre><code>   将串口接收IO电平状态进行定时器计时，计算出最小脉宽时长，即一帧时长，就可算出其波特率值。 
+</code></pre>
+<h5 id="缺点">缺点：</h5>
+<pre><code>   类似 00110011 这样的码，无法准确测出；
+   引导码最好用 类似0101 0101 这种码；
+   最好有相关的引导码，或者加长检测周期；</code></pre>
+
+            </div>
             
+              <div class="tag-container">
+                
+                  <a href="https://fanlida.github.io/tag/ZT5_adjO6/" class="tag">
+                    STM32
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanlida.github.io/post/stm32-nei-cun-qu-fen-pei-jiang-jie/">
+                  <h3 class="post-title">
+                    STM32内存区分配讲解
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
           </div>
+
         </div>
       </div>
     </div>
@@ -113,6 +164,29 @@ var app = new Vue({
 </script>
 
 
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'fanlida.github.io',
+        owner: '',
+        admin: [''],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
 
 
 
