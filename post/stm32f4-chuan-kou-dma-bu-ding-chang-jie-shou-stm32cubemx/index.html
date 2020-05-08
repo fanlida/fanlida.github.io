@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://fanlida.github.io//favicon.ico?v=1588925716340">
+<link rel="shortcut icon" href="https://fanlida.github.io//favicon.ico?v=1588926660603">
 <link rel="stylesheet" href="https://fanlida.github.io//styles/main.css">
 
 
@@ -36,7 +36,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://fanlida.github.io/">
-        <img src="https://fanlida.github.io//images/avatar.png?v=1588925716340" class="site-logo">
+        <img src="https://fanlida.github.io//images/avatar.png?v=1588926660603" class="site-logo">
         <h1 class="site-title">范丽达的网页</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -133,11 +133,68 @@ uint8_t BufferRx[BUF_LEN_MAX];       //存放接收到的数据
 uint8_t *pUart1Rx;                   //指向存入数据的数组
 uint16_t uart1RxLen;                 //接收到数据的长度
 </code></pre>
-<h3 id="4查看stm32f4xx_itc里面">4.	查看STM32f4XX_it.c里面</h3>
+<h3 id="4在mianc中mian初始化函数中添加以下代码">4.在mian.c中,mian()初始化函数中添加以下代码：</h3>
+<pre><code class="language-c">//先进行DMA串口接收的使能，若失败进入错误处理函数
+  if(HAL_UART_Receive_DMA(&amp;huart1,Rxbuffer,BUF_LEN_MAX) != HAL_OK)
+  {
+	   Error_Handler();
+  }
+  __HAL_UART_ENABLE_IT(&amp;huart1,UART_IT_IDLE);  //开启串口空闲中断
+</code></pre>
+<h3 id="5查看stm32f4xx_itc里面">5.	查看STM32f4XX_it.c里面</h3>
+<p>加载usart.h文件：</p>
+<pre><code class="language-c">#include &quot;usart.h&quot;
+</code></pre>
+<p>并在void USART1_IRQHandler(void)函数中添加以下代码：</p>
+<p>//每次产生串口中断时，判断串口空闲标志位，若产生空闲处理串口回调函数<br>
+//串口回调函数在usart.c中编写，并在usart.h声明该函数名称<br>
+//该文件中要加载usart.h文件</p>
 <pre><code class="language-c">void USART1_IRQHandler(void)       
-{                               
-  HAL_UART_IRQHandler(&amp;huart1);
+{       
+    if(__HAL_UART_GET_FLAG(&amp;huart1,UART_FLAG_IDLE) != RESET)
+    {
+	    HAL_UART_IdleCallback(&amp;huart1);
+    }                        
+    HAL_UART_IRQHandler(&amp;huart1);
 }    
+</code></pre>
+<h3 id="6-在usarth中声明">6. 在usart.h中声明</h3>
+<p>//声明串口空闲接收回调函数，供stm324xx_it.c调用<br>
+void HAL_UART_IdleCallback(UART_HandleTypeDef *huart);</p>
+<p>在usart.c中包含，定义，编写</p>
+<pre><code class="language-c">#include &quot;string.h&quot;
+
+uint8_t uart1RxLen;              //定义DMA串口接收长度
+uint8_t Rxbuffer[BUF_LEN_MAX];   //定义DMA串口接收空间buffer
+
+void HAL_UART_IdleCallback(UART_HandleTypeDef *huart)
+{
+    __HAL_UART_CLEAR_IDLEFLAG(huart);  //清除标志位
+    
+    HAL_UART_DMAStop(&amp;huart1);         //停止DMA接收
+ 				 
+    uart1RxLen = BUF_LEN_MAX -__HAL_DMA_GET_COUNTER(&amp;hdma_usart1_rx);     
+    // 获取长度
+ 				 
+    HAL_UART_Transmit(&amp;huart1, Rxbuffer, uart1RxLen, 500);		 
+ 	 //Check_Data(Rxbuffer,uart1RxLen);  //可以编写一个接收处理函数			  
+ 	 //printf(&quot;%s&quot;,Rxbuffer);
+    memset(Rxbuffer,0x00,BUF_LEN_MAX);       
+     //清除缓存区 需要包含#include &quot;string.h&quot;		
+ 	//再次进行DMA串口接收的使能，若失败进入错误处理函数	
+ 	 if(HAL_UART_Receive_DMA(&amp;huart1,Rxbuffer,BUF_LEN_MAX) != HAL_OK)
+ 	 {
+ 						 Error_Handler();
+ 	  }
+   
+  }
+  ```
+
+### 7.	设置Keil调试方式，进行烧写程序。
+![](https://fanlida.github.io//post-images/1588926642467.gif)
+
+
+
 </code></pre>
 
             </div>
