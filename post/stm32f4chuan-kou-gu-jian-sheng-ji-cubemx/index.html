@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://fanlida.github.io//favicon.ico?v=1588944896525">
+<link rel="shortcut icon" href="https://fanlida.github.io//favicon.ico?v=1588946051340">
 <link rel="stylesheet" href="https://fanlida.github.io//styles/main.css">
 
 
@@ -37,7 +37,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://fanlida.github.io/">
-        <img src="https://fanlida.github.io//images/avatar.png?v=1588944896525" class="site-logo">
+        <img src="https://fanlida.github.io//images/avatar.png?v=1588946051340" class="site-logo">
         <h1 class="site-title">范丽达的网页</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -116,113 +116,111 @@
 具体设置可查看《STM32F4串口+DMA不定长接收》配置及操作</p>
 <h3 id="2参考官方例程">2.参考官方例程，</h3>
 <p>路径：NewFolder\STM32Cube_FW_F4_V1.24.2\Projects\STM324xG_EVAL<br>
-\Applications\IAP\IAP_Main<br>
-将以下文件移植过来<br>
+\Applications\IAP\IAP_Main</p>
+<p>将以下文件移植过来：<br>
 common.c, common.h,<br>
 memu.c,     memu.h,<br>
 flash_if.c,    flash_if.h,<br>
 ymodem.c, ymodem.h</p>
-<p>（1）common.c,common.h</p>
-<pre><code>     说明：代码无改动；
-</code></pre>
-<p>（2）memu.c,memu.h</p>
-<pre><code>    说明：
-    a.串口输出提示改为中文方便识别操作
-    b. void Main_Menu(void) 中switch(key)  case:'3'  
-    添加：FLASH_Write_Downloading_Flag(RUNING); 
-    写入下载标识，此处标志代表升级完成，设置成运行模式；
-</code></pre>
-<p>（3）flash_if.c,flash_if.h</p>
-<pre><code>   说明：
-   添加两个函数代码，
-   1.固件升级标志写入  
-   2.固件升级标志读取
-   a. uint16_t FLASH_Write_Downloading_Flag(uint16_t data)；
-   b. uint16_t FLASH_Read_Downloading_Flag(void)；
-
-   标志存放的地址为： 
-    块：ADDR_FLASH_SECTOR_1     
-           ((uint32_t)0x08004000)~((uint32_t)0x08007FFF)
-    具体地址为： 0x08006FFE （也可根据自己需要修改）	
-
-   flash_if.h 中  
-   #define APPLICATION_ADDRESS   (uint32_t)0x08008000   
-   代表BootLoader的空间从0x08000000到0x08008000 ，
-   占两个扇区，可根据自己需要修改
-</code></pre>
-<p>（4）ymodem.c,ymodem.h</p>
-<pre><code>     说明： 
-     对该函数内容进行修改：
-     COM_StatusTypeDef Ymodem_Receive ( uint32_t *p_size )
-
-      约文件395行左右处，修改如下
-
-     Str2Int(file_size, p_size); //获取文件大小传给p_size
-     /* 测试要发送的图像的大小 */
-    //*p_size = filesize;
-   /* 需要传输的数据大小大于Flash大小 */
-   if (*p_size &gt; (USER_FLASH_SIZE + 1)) //文件超过了芯片可存储空间
-   {
-       /* 结束传输 */
-        tmp = CA;
-        HAL_UART_Transmit(&amp;huart1, &amp;tmp, 1, NAK_TIMEOUT);
-        HAL_UART_Transmit(&amp;huart1, &amp;tmp, 1, NAK_TIMEOUT);
-        result = COM_LIMIT;
-   }
-   else     //2020.3.6 范丽达进行修改
-   {
-          /* 擦除用户应用程序区域 */
-        FLASH_If_Erase(APPLICATION_ADDRESS);                  
-        Serial_PutByte(ACK);
-        Serial_PutByte(CRC16);
-   }
-</code></pre>
+<p>（1）common.c,common.h<br>
+说明：代码无改动；</p>
+<p>（2）memu.c,memu.h<br>
+说明：<br>
+a.串口输出提示改为中文方便识别操作<br>
+b. void Main_Menu(void) 中switch(key)  case:'3'<br>
+添加：FLASH_Write_Downloading_Flag(RUNING);<br>
+写入下载标识，此处标志代表升级完成，设置成运行模式；</p>
+<p>（3）flash_if.c,flash_if.h<br>
+说明：<br>
+添加两个函数代码，<br>
+1.固件升级标志写入<br>
+2.固件升级标志读取<br>
+<br><br>
+a. uint16_t FLASH_Write_Downloading_Flag(uint16_t data)；<br>
+b. uint16_t FLASH_Read_Downloading_Flag(void)；<br>
+标志存放的地址为：<br>
+块：ADDR_FLASH_SECTOR_1<br>
+((uint32_t)0x08004000)~((uint32_t)0x08007FFF)<br>
+具体地址为： 0x08006FFE （也可根据自己需要修改）	<br>
+<br><br>
+flash_if.h 中<br>
+#define APPLICATION_ADDRESS   (uint32_t)0x08008000<br>
+代表BootLoader的空间从0x08000000到0x08008000 ，<br>
+占两个扇区，可根据自己需要修改<br>
+<br>						<br>
+（4）ymodem.c,ymodem.h<br>
+说明：<br>
+对该函数内容进行修改：<br>
+COM_StatusTypeDef Ymodem_Receive ( uint32_t <em>p_size )<br>
+<br><br>
+约文件395行左右处，修改如下<br>
+<br><br>
+Str2Int(file_size, p_size); //获取文件大小传给p_size<br>
+/</em> 测试要发送的图像的大小 */<br>
+//<em>p_size = filesize;<br>
+/</em> 需要传输的数据大小大于Flash大小 */<br>
+if (<em>p_size &gt; (USER_FLASH_SIZE + 1)) //文件超过了芯片可存储空间<br>
+{<br>
+/</em> 结束传输 <em>/<br>
+tmp = CA;<br>
+HAL_UART_Transmit(&amp;huart1, &amp;tmp, 1, NAK_TIMEOUT);<br>
+HAL_UART_Transmit(&amp;huart1, &amp;tmp, 1, NAK_TIMEOUT);<br>
+result = COM_LIMIT;<br>
+}<br>
+else     //2020.3.6 范丽达进行修改<br>
+{<br>
+/</em> 擦除用户应用程序区域 */<br>
+FLASH_If_Erase(APPLICATION_ADDRESS);<br>
+Serial_PutByte(ACK);<br>
+Serial_PutByte(CRC16);<br>
+}</p>
 <h3 id="3主函数修改说明">3.主函数修改说明：</h3>
-<p>（1）例程是由按键控制设备是否进入固件升级的。</p>
-<pre><code>       重启后，检测某按键是否按下。
-       若按下进行固件升级，若没有，则跳转到应用程序中；
-       实际应用中不现实。
-</code></pre>
-<p>（2）修改思路如下：</p>
-<pre><code>    在确保ADDR_FLASH_SECTOR_0 （16K）的空间能存放BootLoader程序的情况下；		
-    将ADDR_FLASH_SECTOR_1 的 0x08006FFE 地址下数据作为标志位
-    若BootLoader程序大于16K，
-
-    可将标志位地址放到 ADDR_FLASH_SECTOR_2块内，或者地址更后的块内
-    #define UPDATE   0X00FA   //固件升级标志
-    #define RUNING   0X00AF   //进入运行标志
-
-    a.BootLoader程序初始化中，会检测标志位，
-       若为UPDATE，则进入升级界面，否则进入应用程序运行状态；
-       若初次只烧写BootLoader程序，读取固件升级标志位，默认值应为 0XFFFF，
-       默认进入应用程序运行状态；
-       此时只运行BootLoader程序，只可直接将应用程序烧写进去，不可以利用固件升级烧写；
-
-    b.应用程序运行过程中，若需要升级，可通过串口发送密码，程序检测到密码正确后，
-       立即修改标志位为UPDATE并进行软件重启，会跳入到BootLoader程序升级界面	
-</code></pre>
-<p>（3）程序如下：</p>
-<pre><code>     Flag = FLASH_Read_Downloading_Flag();  //获取标志位
-      //如果标志位为UPDATE
-     if(Flag == UPDATE)   
-     {
-          Main_Menu();
-     }
-     else
-     /* Test if user code is programmed starting from address&quot;APPLICATION_ADDRESS&quot; */
-     {
-         if (((*(__IO uint32_t*)APPLICATION_ADDRESS) &amp; 0x2FFE0000 ) == 0x20000000)
-        {		
-          _disable_irq();             //跳转前关闭中断，一定要注意
-         /* Jump to user application */
-         JumpAddress = *(__IO uint32_t*) (APPLICATION_ADDRESS + 4);
-        JumpToApplication = (pFunction) JumpAddress;
-        /* Initialize user application's Stack Pointer */
-        __set_MSP(*(__IO uint32_t*) APPLICATION_ADDRESS);
-       JumpToApplication();
-       }
-    }
-</code></pre>
+<p>（1）例程是由按键控制设备是否进入固件升级的。<br>
+<br><br>
+重启后，检测某按键是否按下。<br>
+若按下进行固件升级，若没有，则跳转到应用程序中；<br>
+实际应用中不现实。</p>
+<p>（2）修改思路如下：<br>
+<br><br>
+在确保ADDR_FLASH_SECTOR_0 （16K）的空间能存放BootLoader程序的情况下；		<br>
+将ADDR_FLASH_SECTOR_1 的 0x08006FFE 地址下数据作为标志位<br>
+若BootLoader程序大于16K，<br>
+<br><br>
+可将标志位地址放到 ADDR_FLASH_SECTOR_2块内，或者地址更后的块内<br>
+#define UPDATE   0X00FA   //固件升级标志<br>
+#define RUNING   0X00AF   //进入运行标志<br>
+<br><br>
+a.BootLoader程序初始化中，会检测标志位，<br>
+若为UPDATE，则进入升级界面，否则进入应用程序运行状态；<br>
+若初次只烧写BootLoader程序，读取固件升级标志位，默认值应为 0XFFFF，<br>
+默认进入应用程序运行状态；<br>
+此时只运行BootLoader程序，只可直接将应用程序烧写进去，不可以利用固件升级烧写；<br>
+<br><br>
+b.应用程序运行过程中，若需要升级，可通过串口发送密码，程序检测到密码正确后，<br>
+立即修改标志位为UPDATE并进行软件重启，会跳入到BootLoader程序升级界面	<br>
+<br><br>
+（3）程序如下：<br>
+<br><br>
+Flag = FLASH_Read_Downloading_Flag();  //获取标志位<br>
+//如果标志位为UPDATE<br>
+if(Flag == UPDATE)<br>
+{<br>
+Main_Menu();<br>
+}<br>
+else<br>
+/* Test if user code is programmed starting from address&quot;APPLICATION_ADDRESS&quot; <em>/<br>
+{<br>
+if (((</em>(__IO uint32_t*)APPLICATION_ADDRESS) &amp; 0x2FFE0000 ) == 0x20000000)<br>
+{		<br>
+_disable_irq();             //跳转前关闭中断，一定要注意<br>
+/* Jump to user application <em>/<br>
+JumpAddress = <em>(__IO uint32_t</em>) (APPLICATION_ADDRESS + 4);<br>
+JumpToApplication = (pFunction) JumpAddress;<br>
+/</em> Initialize user application's Stack Pointer <em>/<br>
+__set_MSP(</em>(__IO uint32_t*) APPLICATION_ADDRESS);<br>
+JumpToApplication();<br>
+}<br>
+}</p>
 
             </div>
             
