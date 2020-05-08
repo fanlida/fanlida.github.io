@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>设备远程维护解决方案 | 范丽达的网页</title>
+<title>STM32F4串口+DMA不定长接收 (STM32CubeMX) | 范丽达的网页</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,13 +24,9 @@
 
 
 
-    <meta name="description" content="由于作者水平有限，以下解决方案还不够成熟。希望对此有见解的人士，不吝赐教！
-
-
-
-
-
-..." />
+    <meta name="description" content="1.	变长数据包如何确定数据包长度
+可以有以下两种方法：
+（1）	制定严格的通信协议，带有一串特殊字符的数据包头、长度、校验、包尾等，比如，一开始收到：0xAA-0xBB-0xCC-0xDD-0xEE，表示数据包头，接下来两个字节是数据包长..." />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -102,25 +98,56 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">设备远程维护解决方案</h2>
-            <div class="post-date">2020-05-07</div>
+            <h2 class="post-title">STM32F4串口+DMA不定长接收 (STM32CubeMX)</h2>
+            <div class="post-date">2020-05-08</div>
             
             <div class="post-content" v-pre>
-              <p>由于作者水平有限，以下解决方案还不够成熟。希望对此有见解的人士，不吝赐教！<br>
-<br><br>
-<img src="https://fanlida.github.io//post-images/1588859660004.gif" alt="" loading="lazy"><br>
-<img src="https://fanlida.github.io//post-images/1588859677474.gif" alt="" loading="lazy"><br>
-<img src="https://fanlida.github.io//post-images/1588859683482.gif" alt="" loading="lazy"><br>
-<img src="https://fanlida.github.io//post-images/1588859688232.gif" alt="" loading="lazy"></p>
+              <h3 id="1变长数据包如何确定数据包长度">1.	变长数据包如何确定数据包长度</h3>
+<p>可以有以下两种方法：<br>
+（1）	制定严格的通信协议，带有一串特殊字符的数据包头、长度、校验、包尾等，比如，一开始收到：0xAA-0xBB-0xCC-0xDD-0xEE，表示数据包头，接下来两个字节是数据包长度，接下来是数据包内容，接下来是校验值，接下来是结尾。<br>
+（2）	使用定时器，判定在指定时间内没有收到数据，就算一个数据包结束。可以在收到一个数据后，开启定时器，定时器的超时时间设定为1~2个数据之间的时间，若在此期间有数据，则判定为数据包未结束，重载定时器，若此期间无数据，则判定为数据包结束，关闭定时器。<br>
+不讨论以上两种方法，因为STM32有更方便的处理方式，STM32能够检测串口空闲；</p>
+<p>当空闲被检测到时，如果IDLEIE位设置，就会产生一个IDLE中断。<br>
+我们捕获这个中断，并处理它就行了。<br>
+在空闲中断产生之前，我们收到的数据，怎么处理呢？先收着，存进一个Buffer里面！</p>
+<h3 id="2stm32cubemx创建流程以f407为例">2.	STM32CubeMX创建流程，以F407为例：</h3>
+<p>（1）	打开软件，新建工程，根据自己芯片型号选择；<br>
+<img src="https://fanlida.github.io//post-images/1588924617290.gif" alt="" loading="lazy"></p>
+<p>（2）	配置RCC选取外部晶振</p>
+<figure data-type="image" tabindex="1"><img src="https://fanlida.github.io//post-images/1588924674139.gif" alt="" loading="lazy"></figure>
+<p>（3）	配置SYS<br>
+<img src="https://fanlida.github.io//post-images/1588924714742.gif" alt="" loading="lazy"></p>
+<p>（4）	配置USART1<br>
+<img src="https://fanlida.github.io//post-images/1588924753911.gif" alt="" loading="lazy"><br>
+使能串口中断<br>
+<img src="https://fanlida.github.io//post-images/1588924806515.gif" alt="" loading="lazy"><br>
+使能串口接收DMA<br>
+<img src="https://fanlida.github.io//post-images/1588924846662.gif" alt="" loading="lazy"></p>
+<p>（5）	 配置时钟树如图：<br>
+<img src="https://fanlida.github.io//post-images/1588924904627.gif" alt="" loading="lazy"></p>
+<p>（6）	生成代码<br>
+<img src="https://fanlida.github.io//post-images/1588924946752.gif" alt="" loading="lazy"></p>
+<h3 id="3在mianc中定义数据参数">3.	在mian.c中定义数据参数</h3>
+<pre><code class="language-c">#define  BUF_LEN_MAX   1024          //数据包最大空间
+uint8_t BufferRx[BUF_LEN_MAX];       //存放接收到的数据
+uint8_t *pUart1Rx;                   //指向存入数据的数组
+uint16_t uart1RxLen;                 //接收到数据的长度
+</code></pre>
+<h3 id="4查看stm32f4xx_itc里面">4.	查看STM32f4XX_it.c里面</h3>
+<pre><code class="language-c">void USART1_IRQHandler(void)       
+{                               
+  HAL_UART_IRQHandler(&amp;huart1);
+}    
+</code></pre>
 
             </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://fanlida.github.io/post/dan-pian-ji-chang-yong-c-yu-yan-biao-zhun-ku/">
+                <a href="https://fanlida.github.io/post/pcb-zou-xian-de-3w-yuan-ze/">
                   <h3 class="post-title">
-                    单片机常用C语言标准库
+                    PCB走线的3W原则
                   </h3>
                 </a>
               </div>
