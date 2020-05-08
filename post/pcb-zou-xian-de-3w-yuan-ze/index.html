@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>STM32内存区分配讲解 | 范丽达的网页</title>
+<title>PCB走线的3W原则 | 范丽达的网页</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,12 +24,9 @@
 
 
 
-    <meta name="description" content="
-程序
-#define PI 3.1415926       //宏定义不占用内存
-int num；                  //全局变量存放在静态存储区；
-char *str=NULL；           //全局变量存放在静..." />
-    <meta name="keywords" content="STM32" />
+    <meta name="description" content="使用3W原则的意义：
+在PCB设计中，对于强干扰信号线和对干扰很敏感的信号线 产生的串扰，会存在于走线之间,这种不良影响不仅与时钟或周期信号有关,而且也会对系统中其他的重要走线,数据线、地址线、控制线和IO产生影响。问题的大多数来自时钟和周..." />
+    <meta name="keywords" content="PCB设计" />
   </head>
   <body>
     <div id="app" class="main">
@@ -100,77 +97,46 @@ char *str=NULL；           //全局变量存放在静..." />
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">STM32内存区分配讲解</h2>
-            <div class="post-date">2020-05-07</div>
+            <h2 class="post-title">PCB走线的3W原则</h2>
+            <div class="post-date">2020-05-08</div>
+            
+              <div class="feature-container" style="background-image: url('https://fanlida.github.io//post-images/pcb-zou-xian-de-3w-yuan-ze.png')">
+              </div>
             
             <div class="post-content" v-pre>
-              <!-- more -->
-<h3 id="程序">程序</h3>
-<pre><code class="language-c">#define PI 3.1415926       //宏定义不占用内存
-int num；                  //全局变量存放在静态存储区；
-char *str=NULL；           //全局变量存放在静态存储区；
-
-int main()
-{
-   	int time;                //存在内存的栈区
-    char a=10;               //存在内存的栈区
-    int table[8];            //存在内存的栈区
-    str =(char*)malloc[10];  //动态内存，存放在堆区
-    static int temp;         //静态变量存放在静态存储区
-    char *p=“”1234“”；       //p存放在栈上，“1234”存放在常量区
-    strcpy(str,&quot;4321&quot;);
-    free(str);
-    str=NULL;
-}
-1:堆存储区 ==&gt; 存储手动分配的内存:malloc free
-2:栈存储区 ==&gt; 系统为临时变量分配内存的区域
-3:静态变量存储区 ==&gt; 用来存储静态变量内存
-    当程序启动时,先为所有的静态变量分配内存
-    在程序执行中,static静态变量的内存一直保留
-    当程序完全结束时,系统才释放所有的static变量
-</code></pre>
-<blockquote>
-<p>引用文本<br>
-1.1 栈区（stack）<br>
-由编译器自动分配和释放，存放函数的参数值、局部变量的值等。其操作方式类似于数据结构中的栈。<br>
-<br><br>
-1.2 堆区（heap）<br>
-一般由程序员分配和释放，若程序员没有释放，则可能在程序结束时由操作系统（OS）回收。<br>
-注意它与数据结构中的堆是两回事，其分配方式倒是类似于链表。<br>
-<br><br>
-1.3 全局区（静态区，static）<br>
-全局变量和静态变量都存放在这里， 初始化了的全局变量和静态变量存放在一块区域，<br>
-未初始化的全局变量和静态变量存放在相邻的另一块区域（BSS）。程序结束后由系统释放。<br>
-<br><br>
-1.4. 文字常量区<br>
-常量字符串就是放在这里的。程序结束后由系统释放。<br>
-<br><br>
-1.5 程序代码区<br>
-存放函数体的二进制代码。<br>
-<br></p>
-</blockquote>
-<blockquote>
-<p>引用文本<br>
-一条进程的栈区、堆区、数据区和代码区在内存中的映射<br>
-1&gt;栈区：主要用来存放局部变量, 传递参数, 存放函数的返回地址。.esp 始终指向栈顶, 栈中的数据越多, esp的值越小。<br>
-2&gt;堆区：用于存放动态分配的对象, 当你使用 malloc和new 等进行分配时,所得到的空间就在堆中。动态分配得到的内存区域附带有分配信息, 所以你　 能够 free和delete它们。<br>
-3&gt;数据区：全局，静态和常量是分配在数据区中的，数据区包括bss（未初始化数据区）和初始化数据区。<br>
-注意：<br>
-1)堆向高内存地址生长；<br>
-2)栈向低内存地址生长；<br>
-3)堆和栈相向而生，堆和栈之间有个临界点，称为stkbrk。</p>
-</blockquote>
+              <h3 id="使用3w原则的意义">使用3W原则的意义：</h3>
+<p>在PCB设计中，对于强干扰信号线和对干扰很敏感的信号线 产生的串扰，会存在于走线之间,这种不良影响不仅与时钟或周期信号有关,而且也会对系统中其他的重要走线,数据线、地址线、控制线和IO产生影响。问题的大多数来自时钟和周期信号,它们间的串扰将引起其他部分的功能性问题。</p>
+<p>所以在时钟走线、差分线、视频、音频，复位线，以及其他系统关键电路等,多个高速信号线长距离走线的时，为了减少线与线之间的串扰，必须强制使用3W原则。</p>
+<h3 id="3w原则的概念">3W原则的概念：</h3>
+<p>为了保证线与线之间的距离足够大，当线与线中心间距不少于3倍线宽（如下图），如果线中心距不少于3倍线宽时，则可保持70%的线间电场不互相干扰，称为3W规则。如要达到98%的电场不互相干扰，可使用10W规则。<br>
+使用3W的原则基本出发点就是使走线间的耦合最小。</p>
+<figure data-type="image" tabindex="1"><img src="https://fanlida.github.io//post-images/1588906508676.png" alt="" loading="lazy"></figure>
+<h3 id="3w原则成立条件">3W原则成立条件：</h3>
+<p>3W原则成立还与电路板的物理因素有关。从串扰成因的物理意义考量，要有效防止串扰，该间距与叠层高度、导线线宽相关。</p>
+<figure data-type="image" tabindex="2"><img src="https://fanlida.github.io//post-images/1588906518034.jpeg" alt="" loading="lazy"></figure>
+<p>对于四层板，走线与参考平面高度距离(5~10mils)，3W是够了；</p>
+<p>但对于两层板，走线与参考层高度距离(45~55mils)，3W对高速信号走线可能不够。</p>
+<p>3W原则一般是在50欧姆特征阻抗传输线条件下成立。</p>
 
             </div>
             
               <div class="tag-container">
                 
-                  <a href="https://fanlida.github.io/tag/ZT5_adjO6/" class="tag">
-                    STM32
+                  <a href="https://fanlida.github.io/tag/EmPRxUHWL/" class="tag">
+                    PCB设计
                   </a>
                 
               </div>
             
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanlida.github.io/post/she-bei-yuan-cheng-wei-hu-jie-jue-fang-an/">
+                  <h3 class="post-title">
+                    设备远程维护解决方案
+                  </h3>
+                </a>
+              </div>
             
 
             
