@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://fanlida.github.io//favicon.ico?v=1588946051340">
+<link rel="shortcut icon" href="https://fanlida.github.io//favicon.ico?v=1588946871924">
 <link rel="stylesheet" href="https://fanlida.github.io//styles/main.css">
 
 
@@ -25,8 +25,8 @@
 
 
     <meta name="description" content="STM32F4+串口固件升级（CubeMX_IAP）
-范丽达基于官方例程（串口ymodem协议）和《STM32F4串口+DMA不定长接收》进行修改。
-关于《STM32F4串口+DMA不定长接收》配置及操作，参考本站文章有详细介绍。
+范丽达基于官方例程（串口ymodem协议）和《STM32F4+串口DMA不定长接收》进行修改。
+关于《STM32F4+串口DMA不定长接收》配置及操作，参考本站文章有详细介绍。
 本文记录..." />
     <meta name="keywords" content="" />
   </head>
@@ -37,7 +37,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://fanlida.github.io/">
-        <img src="https://fanlida.github.io//images/avatar.png?v=1588946051340" class="site-logo">
+        <img src="https://fanlida.github.io//images/avatar.png?v=1588946871924" class="site-logo">
         <h1 class="site-title">范丽达的网页</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -104,8 +104,8 @@
             
             <div class="post-content" v-pre>
               <p>STM32F4+串口固件升级（CubeMX_IAP）<br>
-范丽达基于官方例程（串口ymodem协议）和《STM32F4串口+DMA不定长接收》进行修改。<br>
-关于《STM32F4串口+DMA不定长接收》配置及操作，参考本站文章有详细介绍。<br>
+范丽达基于官方例程（串口ymodem协议）和《STM32F4+串口DMA不定长接收》进行修改。<br>
+关于《STM32F4+串口DMA不定长接收》配置及操作，参考本站文章有详细介绍。<br>
 本文记录于 2020.01.09<br>
 引导程序（bootloader）的编写如下：</p>
 <h3 id="1关于cubemx配置">1.关于CubeMX配置：</h3>
@@ -151,17 +151,17 @@ flash_if.h 中<br>
 （4）ymodem.c,ymodem.h<br>
 说明：<br>
 对该函数内容进行修改：<br>
-COM_StatusTypeDef Ymodem_Receive ( uint32_t <em>p_size )<br>
+COM_StatusTypeDef Ymodem_Receive ( uint32_t * p_size )<br>
 <br><br>
 约文件395行左右处，修改如下<br>
 <br><br>
 Str2Int(file_size, p_size); //获取文件大小传给p_size<br>
-/</em> 测试要发送的图像的大小 */<br>
-//<em>p_size = filesize;<br>
-/</em> 需要传输的数据大小大于Flash大小 */<br>
-if (<em>p_size &gt; (USER_FLASH_SIZE + 1)) //文件超过了芯片可存储空间<br>
+//测试要发送的图像的大小<br>
+// * p_size = filesize;<br>
+// 需要传输的数据大小大于Flash大小<br>
+if ( * p_size &gt; (USER_FLASH_SIZE + 1)) //文件超过了芯片可存储空间<br>
 {<br>
-/</em> 结束传输 <em>/<br>
+/* 结束传输  <em>/<br>
 tmp = CA;<br>
 HAL_UART_Transmit(&amp;huart1, &amp;tmp, 1, NAK_TIMEOUT);<br>
 HAL_UART_Transmit(&amp;huart1, &amp;tmp, 1, NAK_TIMEOUT);<br>
@@ -169,7 +169,7 @@ result = COM_LIMIT;<br>
 }<br>
 else     //2020.3.6 范丽达进行修改<br>
 {<br>
-/</em> 擦除用户应用程序区域 */<br>
+/</em> 擦除用户应用程序区域  */<br>
 FLASH_If_Erase(APPLICATION_ADDRESS);<br>
 Serial_PutByte(ACK);<br>
 Serial_PutByte(CRC16);<br>
@@ -208,16 +208,16 @@ if(Flag == UPDATE)<br>
 Main_Menu();<br>
 }<br>
 else<br>
-/* Test if user code is programmed starting from address&quot;APPLICATION_ADDRESS&quot; <em>/<br>
+/* Test if user code is programmed starting from address&quot;APPLICATION_ADDRESS&quot;  */<br>
 {<br>
-if (((</em>(__IO uint32_t*)APPLICATION_ADDRESS) &amp; 0x2FFE0000 ) == 0x20000000)<br>
+if ((( *(__IO uint32_t *)APPLICATION_ADDRESS) &amp; 0x2FFE0000 ) == 0x20000000)<br>
 {		<br>
 _disable_irq();             //跳转前关闭中断，一定要注意<br>
-/* Jump to user application <em>/<br>
-JumpAddress = <em>(__IO uint32_t</em>) (APPLICATION_ADDRESS + 4);<br>
+// Jump to user application<br>
+JumpAddress = * (__IO uint32_t *) (APPLICATION_ADDRESS + 4);<br>
 JumpToApplication = (pFunction) JumpAddress;<br>
-/</em> Initialize user application's Stack Pointer <em>/<br>
-__set_MSP(</em>(__IO uint32_t*) APPLICATION_ADDRESS);<br>
+//Initialize user application's Stack Pointer<br>
+__set_MSP( * (__IO uint32_t * ) APPLICATION_ADDRESS);<br>
 JumpToApplication();<br>
 }<br>
 }</p>
@@ -229,7 +229,7 @@ JumpToApplication();<br>
                 <div class="next">下一篇</div>
                 <a href="https://fanlida.github.io/post/stm32f4-chuan-kou-dma-bu-ding-chang-jie-shou-stm32cubemx/">
                   <h3 class="post-title">
-                    STM32F4串口+DMA不定长接收 (STM32CubeMX)
+                    STM32F4+串口DMA不定长接收 (CubeMX)
                   </h3>
                 </a>
               </div>
