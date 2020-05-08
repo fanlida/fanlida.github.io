@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://fanlida.github.io//favicon.ico?v=1588946871924">
+<link rel="shortcut icon" href="https://fanlida.github.io//favicon.ico?v=1588947429645">
 <link rel="stylesheet" href="https://fanlida.github.io//styles/main.css">
 
 
@@ -37,7 +37,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://fanlida.github.io/">
-        <img src="https://fanlida.github.io//images/avatar.png?v=1588946871924" class="site-logo">
+        <img src="https://fanlida.github.io//images/avatar.png?v=1588947429645" class="site-logo">
         <h1 class="site-title">范丽达的网页</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -161,7 +161,7 @@ Str2Int(file_size, p_size); //获取文件大小传给p_size<br>
 // 需要传输的数据大小大于Flash大小<br>
 if ( * p_size &gt; (USER_FLASH_SIZE + 1)) //文件超过了芯片可存储空间<br>
 {<br>
-/* 结束传输  <em>/<br>
+// 结束传输<br>
 tmp = CA;<br>
 HAL_UART_Transmit(&amp;huart1, &amp;tmp, 1, NAK_TIMEOUT);<br>
 HAL_UART_Transmit(&amp;huart1, &amp;tmp, 1, NAK_TIMEOUT);<br>
@@ -169,7 +169,7 @@ result = COM_LIMIT;<br>
 }<br>
 else     //2020.3.6 范丽达进行修改<br>
 {<br>
-/</em> 擦除用户应用程序区域  */<br>
+//擦除用户应用程序区域<br>
 FLASH_If_Erase(APPLICATION_ADDRESS);<br>
 Serial_PutByte(ACK);<br>
 Serial_PutByte(CRC16);<br>
