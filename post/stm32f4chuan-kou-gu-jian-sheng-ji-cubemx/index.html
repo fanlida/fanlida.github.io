@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>STM32F4+串口固件升级（CubeMX） | 范丽达的网页</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://fanlida.github.io//favicon.ico?v=1588944896525">
+<link rel="stylesheet" href="https://fanlida.github.io//styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="STM32F4+串口固件升级（CubeMX_IAP）
+范丽达基于官方例程（串口ymodem协议）和《STM32F4串口+DMA不定长接收》进行修改。
+关于《STM32F4串口+DMA不定长接收》配置及操作，参考本站文章有详细介绍。
+本文记录..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://fanlida.github.io/">
+        <img src="https://fanlida.github.io//images/avatar.png?v=1588944896525" class="site-logo">
+        <h1 class="site-title">范丽达的网页</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      范丽达的网页
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fanlida.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">STM32F4+串口固件升级（CubeMX）</h2>
+            <div class="post-date">2020-05-08</div>
+            
+            <div class="post-content" v-pre>
+              <p>STM32F4+串口固件升级（CubeMX_IAP）<br>
+范丽达基于官方例程（串口ymodem协议）和《STM32F4串口+DMA不定长接收》进行修改。<br>
+关于《STM32F4串口+DMA不定长接收》配置及操作，参考本站文章有详细介绍。<br>
+本文记录于 2020.01.09<br>
+引导程序（bootloader）的编写如下：</p>
+<h3 id="1关于cubemx配置">1.关于CubeMX配置：</h3>
+<p>（1）设置DEBUG调试方式两线制（SWD）；<br>
+（2）选择陶瓷晶振；<br>
+（3）使能串口1，打开串口接收中断；<br>
+（4）时钟树设置，根据电路板设置外部晶振8M，最高频率168M；<br>
+具体设置可查看《STM32F4串口+DMA不定长接收》配置及操作</p>
+<h3 id="2参考官方例程">2.参考官方例程，</h3>
+<p>路径：NewFolder\STM32Cube_FW_F4_V1.24.2\Projects\STM324xG_EVAL<br>
+\Applications\IAP\IAP_Main<br>
+将以下文件移植过来<br>
+common.c, common.h,<br>
+memu.c,     memu.h,<br>
+flash_if.c,    flash_if.h,<br>
+ymodem.c, ymodem.h</p>
+<p>（1）common.c,common.h</p>
+<pre><code>     说明：代码无改动；
+</code></pre>
+<p>（2）memu.c,memu.h</p>
+<pre><code>    说明：
+    a.串口输出提示改为中文方便识别操作
+    b. void Main_Menu(void) 中switch(key)  case:'3'  
+    添加：FLASH_Write_Downloading_Flag(RUNING); 
+    写入下载标识，此处标志代表升级完成，设置成运行模式；
+</code></pre>
+<p>（3）flash_if.c,flash_if.h</p>
+<pre><code>   说明：
+   添加两个函数代码，
+   1.固件升级标志写入  
+   2.固件升级标志读取
+   a. uint16_t FLASH_Write_Downloading_Flag(uint16_t data)；
+   b. uint16_t FLASH_Read_Downloading_Flag(void)；
+
+   标志存放的地址为： 
+    块：ADDR_FLASH_SECTOR_1     
+           ((uint32_t)0x08004000)~((uint32_t)0x08007FFF)
+    具体地址为： 0x08006FFE （也可根据自己需要修改）	
+
+   flash_if.h 中  
+   #define APPLICATION_ADDRESS   (uint32_t)0x08008000   
+   代表BootLoader的空间从0x08000000到0x08008000 ，
+   占两个扇区，可根据自己需要修改
+</code></pre>
+<p>（4）ymodem.c,ymodem.h</p>
+<pre><code>     说明： 
+     对该函数内容进行修改：
+     COM_StatusTypeDef Ymodem_Receive ( uint32_t *p_size )
+
+      约文件395行左右处，修改如下
+
+     Str2Int(file_size, p_size); //获取文件大小传给p_size
+     /* 测试要发送的图像的大小 */
+    //*p_size = filesize;
+   /* 需要传输的数据大小大于Flash大小 */
+   if (*p_size &gt; (USER_FLASH_SIZE + 1)) //文件超过了芯片可存储空间
+   {
+       /* 结束传输 */
+        tmp = CA;
+        HAL_UART_Transmit(&amp;huart1, &amp;tmp, 1, NAK_TIMEOUT);
+        HAL_UART_Transmit(&amp;huart1, &amp;tmp, 1, NAK_TIMEOUT);
+        result = COM_LIMIT;
+   }
+   else     //2020.3.6 范丽达进行修改
+   {
+          /* 擦除用户应用程序区域 */
+        FLASH_If_Erase(APPLICATION_ADDRESS);                  
+        Serial_PutByte(ACK);
+        Serial_PutByte(CRC16);
+   }
+</code></pre>
+<h3 id="3主函数修改说明">3.主函数修改说明：</h3>
+<p>（1）例程是由按键控制设备是否进入固件升级的。</p>
+<pre><code>       重启后，检测某按键是否按下。
+       若按下进行固件升级，若没有，则跳转到应用程序中；
+       实际应用中不现实。
+</code></pre>
+<p>（2）修改思路如下：</p>
+<pre><code>    在确保ADDR_FLASH_SECTOR_0 （16K）的空间能存放BootLoader程序的情况下；		
+    将ADDR_FLASH_SECTOR_1 的 0x08006FFE 地址下数据作为标志位
+    若BootLoader程序大于16K，
+
+    可将标志位地址放到 ADDR_FLASH_SECTOR_2块内，或者地址更后的块内
+    #define UPDATE   0X00FA   //固件升级标志
+    #define RUNING   0X00AF   //进入运行标志
+
+    a.BootLoader程序初始化中，会检测标志位，
+       若为UPDATE，则进入升级界面，否则进入应用程序运行状态；
+       若初次只烧写BootLoader程序，读取固件升级标志位，默认值应为 0XFFFF，
+       默认进入应用程序运行状态；
+       此时只运行BootLoader程序，只可直接将应用程序烧写进去，不可以利用固件升级烧写；
+
+    b.应用程序运行过程中，若需要升级，可通过串口发送密码，程序检测到密码正确后，
+       立即修改标志位为UPDATE并进行软件重启，会跳入到BootLoader程序升级界面	
+</code></pre>
+<p>（3）程序如下：</p>
+<pre><code>     Flag = FLASH_Read_Downloading_Flag();  //获取标志位
+      //如果标志位为UPDATE
+     if(Flag == UPDATE)   
+     {
+          Main_Menu();
+     }
+     else
+     /* Test if user code is programmed starting from address&quot;APPLICATION_ADDRESS&quot; */
+     {
+         if (((*(__IO uint32_t*)APPLICATION_ADDRESS) &amp; 0x2FFE0000 ) == 0x20000000)
+        {		
+          _disable_irq();             //跳转前关闭中断，一定要注意
+         /* Jump to user application */
+         JumpAddress = *(__IO uint32_t*) (APPLICATION_ADDRESS + 4);
+        JumpToApplication = (pFunction) JumpAddress;
+        /* Initialize user application's Stack Pointer */
+        __set_MSP(*(__IO uint32_t*) APPLICATION_ADDRESS);
+       JumpToApplication();
+       }
+    }
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanlida.github.io/post/stm32f4-chuan-kou-dma-bu-ding-chang-jie-shou-stm32cubemx/">
+                  <h3 class="post-title">
+                    STM32F4串口+DMA不定长接收 (STM32CubeMX)
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'fanlida.github.io',
+        owner: '',
+        admin: [''],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
