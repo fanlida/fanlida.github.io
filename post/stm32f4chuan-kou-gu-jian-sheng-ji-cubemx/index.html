@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://fanlida.github.io//favicon.ico?v=1588947429645">
+<link rel="shortcut icon" href="https://fanlida.github.io//favicon.ico?v=1589097512583">
 <link rel="stylesheet" href="https://fanlida.github.io//styles/main.css">
 
 
@@ -37,7 +37,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://fanlida.github.io/">
-        <img src="https://fanlida.github.io//images/avatar.png?v=1588947429645" class="site-logo">
+        <img src="https://fanlida.github.io//images/avatar.png?v=1589097512583" class="site-logo">
         <h1 class="site-title">范丽达的网页</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -106,8 +106,8 @@
               <p>STM32F4+串口固件升级（CubeMX_IAP）<br>
 范丽达基于官方例程（串口ymodem协议）和《STM32F4+串口DMA不定长接收》进行修改。<br>
 关于《STM32F4+串口DMA不定长接收》配置及操作，参考本站文章有详细介绍。<br>
-本文记录于 2020.01.09<br>
-引导程序（bootloader）的编写如下：</p>
+本文记录于 2020.01.09</p>
+<p>引导程序（bootloader）的编写如下：</p>
 <h3 id="1关于cubemx配置">1.关于CubeMX配置：</h3>
 <p>（1）设置DEBUG调试方式两线制（SWD）；<br>
 （2）选择陶瓷晶振；<br>
@@ -221,6 +221,105 @@ __set_MSP( * (__IO uint32_t * ) APPLICATION_ADDRESS);<br>
 JumpToApplication();<br>
 }<br>
 }</p>
+<h2 id="在线升级-app应用程序端">在线升级 APP应用程序端</h2>
+<p>该例程实现：串口中断+DMA+不定长接收 改进为 在线升级 APP应用程序端</p>
+<p>本例程由范丽达学习STM32CUBEMX编写(2020.2.13)</p>
+<h3 id="关于cubemx中配置说明如下">关于CUBEMX中配置说明如下：</h3>
+<p>1.使用usart1，异步通信，默认配置（115200），添加DMA接收中断，开启串口中断，开启DMA串口接收中断；<br>
+2.使用两线制DEBUG，即SWD模式；<br>
+3.选用陶瓷晶振8M，最高频率168M；</p>
+<h3 id="生成代码后">生成代码后：</h3>
+<h4 id="1在mianc中">1.在mian.c中</h4>
+<p>mian()初始化函数中添加以下代码：</p>
+<p>//先进行DMA串口接收的使能，若失败进入错误处理函数<br>
+if(HAL_UART_Receive_DMA(&amp;huart1,Rxbuffer,BUF_LEN_MAX) != HAL_OK)<br>
+{<br>
+Error_Handler();<br>
+}<br>
+__HAL_UART_ENABLE_IT(&amp;huart1,UART_IT_IDLE);  //开启串口空闲中断</p>
+<h4 id="2在stm324xx_itc中">2.在stm324xx_it.c中</h4>
+<p>加载usart.h文件：<br>
+#include &quot;usart.h&quot;</p>
+<p>并在void USART1_IRQHandler(void)函数中添加以下代码：</p>
+<p>//每次产生串口中断时，判断串口空闲标志位，若产生空闲处理串口回调函数<br>
+//串口回调函数在usart.c中编写，并在usart.h声明该函数名称<br>
+//该文件中要加载usart.h文件<br>
+if(__HAL_UART_GET_FLAG(&amp;huart1,UART_FLAG_IDLE) != RESET)<br>
+{<br>
+HAL_UART_IdleCallback(&amp;huart1);<br>
+}</p>
+<h4 id="3在usarth中声明">3.在usart.h中声明</h4>
+<p>#define BUF_LEN_MAX  1024               //定义数组大小<br>
+extern uint8_t uart1RxLen;              //定义DMA串口接收长度<br>
+extern uint8_t Rxbuffer[BUF_LEN_MAX];   //定义DMA串口接收空间buffer</p>
+<p>//声明串口空闲接收回调函数，供stm324xx_it.c调用<br>
+void HAL_UART_IdleCallback(UART_HandleTypeDef  *huart);</p>
+<p>在usart.c中包含，定义，编写<br>
+#include &quot;string.h&quot;</p>
+<p>uint8_t uart1RxLen;              //定义DMA串口接收长度<br>
+uint8_t Rxbuffer[BUF_LEN_MAX];   //定义DMA串口接收空间buffer<br>
+void HAL_UART_IdleCallback(UART_HandleTypeDef *huart)<br>
+{<br>
+__HAL_UART_CLEAR_IDLEFLAG(huart);  //清除标志位<br>
+HAL_UART_DMAStop(&amp;huart1);         //停止DMA接收				<br>
+uart1RxLen = BUF_LEN_MAX -__HAL_DMA_GET_COUNTER(&amp;hdma_usart1_rx);<br>
+// 获取长度			<br>
+//HAL_UART_Transmit(&amp;huart1, Rxbuffer, uart1RxLen, 500);<br>
+Check_Data(Rxbuffer,uart1RxLen);  //可以编写一个接收处理函数			<br>
+//printf(&quot;%s&quot;,Rxbuffer);<br>
+memset(Rxbuffer,0x00,BUF_LEN_MAX);<br>
+//清除缓存区 需要包含#include &quot;string.h&quot;	<br>
+//再次进行DMA串口接收的使能，若失败进入错误处<br>
+if(HAL_UART_Receive_DMA(&amp;huart1,Rxbuffer,BUF_LEN_MAX) != HAL_OK)<br>
+{<br>
+Error_Handler();<br>
+}<br>
+}</p>
+<p>数据处理函数程序如下：	<br>
+void Check_Data(uint8_t *pbuf, uint8_t len)<br>
+{<br>
+uint8_t k;  //获取密码长度<br>
+//开启固件升级密码<br>
+const uint8_t Password[]=&quot;hb_fanlida&quot;;<br>
+//密码长度<br>
+k= (sizeof (Password))-1;<br>
+//如果包为空，直接退出<br>
+if(pbuf == NULL)<br>
+{<br>
+return;<br>
+}<br>
+//若长度与密码长度一致<br>
+if(len == k)<br>
+{<br>
+//进行密码对比<br>
+for(uint8_t i=0; i&lt;len; i++)<br>
+{	<br>
+//若字符有不同，则退出				<br>
+if(pbuf[i] != Password[i])<br>
+return;<br>
+}	<br>
+//若密码一致，写入固件升级标志		<br>
+FLASH_Write_Downloading_Flag(UPDATE); 		<br>
+NVIC_SystemReset();		//软件复位		 		<br>
+}<br>
+}</p>
+<h3 id="关于其他配置和注意事项">关于其他配置和注意事项：</h3>
+<p>应用程序代码执行开始地址设置，例程中BootLoader程序占用空间为：从0x8000000~0x8007FFF<br>
+因此应用程序占用空间为：0x8008000~0x8010000</p>
+<p>（1）以下a,b两种方式，任意执行一项<br>
+a.在system_stm32f4xx.c中， 109行改为 ：<br>
+#define VECT_TAB_OFFSET  0x8000<br>
+b.在main（）初始化中添加：<br>
+SCB-&gt;VTOR = FLASH_BASE | 0x8000;//或者在此处写代码设置偏移量</p>
+<p>（2）务必执行以下操作<br>
+//魔术棒-&gt;Target-&gt;IROM1  0x8008000  0xF8000</p>
+<p>（3）在main（）初始化中添加<br>
+//将标志位写入 应用程序运行标记<br>
+FLASH_Write_Downloading_Flag(RUNING);<br>
+//开启全部中断，重点一定要注意<br>
+__enable_irq();</p>
+<p>（4）在usart.c中添加 void Check_Data(uint8_t *pbuf, uint8_t len)，<br>
+并在void HAL_UART_IdleCallback(UART_HandleTypeDef *huart)用于处理接收数据，（详情参考代码）</p>
 
             </div>
             
