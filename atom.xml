@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanlida.github.io/</id>
     <title>范丽达的网页</title>
-    <updated>2020-07-26T08:55:24.710Z</updated>
+    <updated>2020-07-26T08:59:21.264Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanlida.github.io/"/>
     <link rel="self" href="https://fanlida.github.io/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://fanlida.github.io/images/avatar.png</logo>
     <icon>https://fanlida.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 范丽达的网页</rights>
+    <entry>
+        <title type="html"><![CDATA[FreeRTOS+FatFS+SD卡+U盘（基于STM32CUbeMX）]]></title>
+        <id>https://fanlida.github.io/post/freertosfatfssd-qia-u-pan-ji-yu-stm32cubemx/</id>
+        <link href="https://fanlida.github.io/post/freertosfatfssd-qia-u-pan-ji-yu-stm32cubemx/">
+        </link>
+        <updated>2020-07-26T08:57:37.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[关于MCU实时操作系统资料整理]]></title>
         <id>https://fanlida.github.io/post/guan-yu-mcu-shi-shi-cao-zuo-xi-tong-zi-liao-zheng-li/</id>
