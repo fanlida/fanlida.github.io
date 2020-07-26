@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanlida.github.io/</id>
     <title>范丽达的网页</title>
-    <updated>2020-05-10T08:16:04.078Z</updated>
+    <updated>2020-07-26T05:14:51.341Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanlida.github.io/"/>
     <link rel="self" href="https://fanlida.github.io/atom.xml"/>
@@ -10,6 +10,45 @@
     <logo>https://fanlida.github.io/images/avatar.png</logo>
     <icon>https://fanlida.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 范丽达的网页</rights>
+    <entry>
+        <title type="html"><![CDATA[关于MCU实时操作系统资料整理]]></title>
+        <id>https://fanlida.github.io/post/guan-yu-mcu-shi-shi-cao-zuo-xi-tong-zi-liao-zheng-li/</id>
+        <link href="https://fanlida.github.io/post/guan-yu-mcu-shi-shi-cao-zuo-xi-tong-zi-liao-zheng-li/">
+        </link>
+        <updated>2020-07-26T04:57:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>根据个人学习经历整理了一下关于MCU实时操作系统的资料；</p>
+<p>本人实时操作系统从UCOS开始入门，后转应用FreeRTOS进行产品开发；</p>
+<p>UCOSII是早期应用范围比较广的实时操作系统，资料比较全；<br>
+UCOSIII为最新版本，功能更强大；</p>
+<p>推荐的书籍<br>
+1.《嵌入式实时操作系统uC/OS-II原理及应用》  任哲<br>
+2.《基于嵌入式实时操作系统的程序设计技术》  周慈航 （可见附件电子书）<br>
+3.《嵌入式实时操作系统μC/OS-III》 北航   美 Jean J.Labrosse 宫辉 曾鸣等译</p>
+<p>还有各个平台的配套书籍和例程；<br>
+1.正点原子<br>
+2.野火论坛<br>
+3.安富莱</p>
+<p>FreeRTOS官网  【 https://www.freertos.org 】<br>
+（此网站为英文版，个人推荐使用谷歌浏览器，支持网页翻译）</p>
+<p>哔哩哔哩网站视频推荐：</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>根据个人学习经历整理了一下关于MCU实时操作系统的资料；</p>
+<p>本人实时操作系统从UCOS开始入门，后转应用FreeRTOS进行产品开发；</p>
+<p>UCOSII是早期应用范围比较广的实时操作系统，资料比较全；<br>
+UCOSIII为最新版本，功能更强大；</p>
+<p>推荐的书籍<br>
+1.《嵌入式实时操作系统uC/OS-II原理及应用》  任哲<br>
+2.《基于嵌入式实时操作系统的程序设计技术》  周慈航 （可见附件电子书）<br>
+3.《嵌入式实时操作系统μC/OS-III》 北航   美 Jean J.Labrosse 宫辉 曾鸣等译</p>
+<p>还有各个平台的配套书籍和例程；<br>
+1.正点原子<br>
+2.野火论坛<br>
+3.安富莱</p>
+<p>FreeRTOS官网  【 https://www.freertos.org 】<br>
+（此网站为英文版，个人推荐使用谷歌浏览器，支持网页翻译）</p>
+<p>哔哩哔哩网站视频推荐：</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[STM32F4+串口固件升级（CubeMX）]]></title>
         <id>https://fanlida.github.io/post/stm32f4chuan-kou-gu-jian-sheng-ji-cubemx/</id>
