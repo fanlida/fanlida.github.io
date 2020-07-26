@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanlida.github.io/</id>
     <title>范丽达的网页</title>
-    <updated>2020-07-26T07:26:34.014Z</updated>
+    <updated>2020-07-26T08:55:24.710Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanlida.github.io/"/>
     <link rel="self" href="https://fanlida.github.io/atom.xml"/>
@@ -16,104 +16,6 @@
         <link href="https://fanlida.github.io/post/guan-yu-mcu-shi-shi-cao-zuo-xi-tong-zi-liao-zheng-li/">
         </link>
         <updated>2020-07-26T04:57:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>根据个人学习经历整理了一下关于MCU实时操作系统的资料；</p>
-<p>本人实时操作系统从UCOS开始入门，后转应用FreeRTOS进行产品开发；</p>
-<p>UCOSII是早期应用范围比较广的实时操作系统，资料比较全；<br>
-UCOSIII为最新版本，功能更强大；<br>
-UCOS虽然代码开源，但商业用途需要经过授权；<br>
-因此当今国内应用主流为FreeRTOS和RT-THread；<br>
-FreeRTOS市场占有率比较高，并且适用于STM32CubeMX，有ST官方例程支持；</p>
-<h2 id="推荐的书籍">推荐的书籍</h2>
-<p>1.《嵌入式实时操作系统uC/OS-II原理及应用》  任哲<br>
-2.《基于嵌入式实时操作系统的程序设计技术》  周慈航 （可见附件电子书）<br>
-3.《嵌入式实时操作系统μC/OS-III》 北航   美 Jean J.Labrosse 宫辉 曾鸣等译</p>
-<p><a href="https://pan.baidu.com/s/1Rvc8sfue0D8TcdXr2stpjw">书籍下载链接</a><br>
-【注意需要提取码，提取码：kdzy】</p>
-<h2 id="各个平台的配套书籍和例程">各个平台的配套书籍和例程；</h2>
-<ol>
-<li>
-<p><a href="http://www.openedv.com/">正点原子论坛</a><br>
-<a href="http://www.openedv.com/docs/boards/stm32/zdyz_stm32f407_explorer.html">资料下载</a><br>
-资料包含了UCOS,FreeRTOS，RT-THread等操作系统；</p>
-</li>
-<li>
-<p><a href="https://www.firebbs.cn/forum.php">野火电子论坛</a></p>
-</li>
-<li>
-<p><a href="http://www.armbbs.cn/forum.php">安富莱电子论坛</a><br>
-<a href="http://www.armbbs.cn/forum.php?mod=viewthread&amp;tid=17658&amp;extra=page%3D1">FreeRTOS资料下载</a><br>
-<a href="http://www.armbbs.cn/forum.php?mod=viewthread&amp;tid=1788">UCOS资料下载</a></p>
-</li>
-</ol>
-<p>以下链接为自行整理各平台资料，不够全面，仅供参考；<br>
-<a href="https://pan.baidu.com/s/1geCiXUqDkvt1eK0QARbkoQ">各平台例程资料链接</a><br>
-【注意需要提取码，提取码：03c4】</p>
-<h2 id="实时操作系统官网">实时操作系统官网：</h2>
-<p><a href="https://www.freertos.org/">FreeRTOS官网</a><br>
-（此网站为英文版，个人推荐使用谷歌浏览器，支持网页翻译）<br>
-可通过网站了解关于FreeRTOS内核介绍，开发文档，API等说明；</p>
-<p><a href="https://www.rt-thread.org/">RT-THread官网</a><br>
-国产应用比较广泛的实时操作系统，适配插件模块比较全面；<br>
-网站有入门教程，操作说明等信息；</p>
-<h2 id="哔哩哔哩网站视频推荐">哔哩哔哩网站视频推荐：</h2>
-<p><a href="https://www.bilibili.com/video/BV1864y1T7Z7">FreeRTOS开发训练营</a><br>
-基于STM32CubeMX软件讲解FreeRTOS入门；<br>
-<a href="https://space.bilibili.com/317721370">STM32CubeMX教程</a><br>
-该文作者通过STM32CubeMX开发SMT32，手把手演示各个例程，包括FreeRTOS，值得一看；</p>
-<p><a href="https://www.bilibili.com/video/BV1a4411Q7X1">正点原子FreeRTOS视频</a><br>
-<a href="https://www.bilibili.com/video/BV1qx411d75G">正点原子UCOS-III视频</a><br>
-<a href="https://www.bilibili.com/video/BV1Jx411X7NS">野火论坛FreeRTOS视频</a><br>
-<a href="https://www.bilibili.com/video/BV1rt411u7bv">野火论坛UCOS-III视频</a></p>
-]]></summary>
-        <content type="html"><![CDATA[<p>根据个人学习经历整理了一下关于MCU实时操作系统的资料；</p>
-<p>本人实时操作系统从UCOS开始入门，后转应用FreeRTOS进行产品开发；</p>
-<p>UCOSII是早期应用范围比较广的实时操作系统，资料比较全；<br>
-UCOSIII为最新版本，功能更强大；<br>
-UCOS虽然代码开源，但商业用途需要经过授权；<br>
-因此当今国内应用主流为FreeRTOS和RT-THread；<br>
-FreeRTOS市场占有率比较高，并且适用于STM32CubeMX，有ST官方例程支持；</p>
-<h2 id="推荐的书籍">推荐的书籍</h2>
-<p>1.《嵌入式实时操作系统uC/OS-II原理及应用》  任哲<br>
-2.《基于嵌入式实时操作系统的程序设计技术》  周慈航 （可见附件电子书）<br>
-3.《嵌入式实时操作系统μC/OS-III》 北航   美 Jean J.Labrosse 宫辉 曾鸣等译</p>
-<p><a href="https://pan.baidu.com/s/1Rvc8sfue0D8TcdXr2stpjw">书籍下载链接</a><br>
-【注意需要提取码，提取码：kdzy】</p>
-<h2 id="各个平台的配套书籍和例程">各个平台的配套书籍和例程；</h2>
-<ol>
-<li>
-<p><a href="http://www.openedv.com/">正点原子论坛</a><br>
-<a href="http://www.openedv.com/docs/boards/stm32/zdyz_stm32f407_explorer.html">资料下载</a><br>
-资料包含了UCOS,FreeRTOS，RT-THread等操作系统；</p>
-</li>
-<li>
-<p><a href="https://www.firebbs.cn/forum.php">野火电子论坛</a></p>
-</li>
-<li>
-<p><a href="http://www.armbbs.cn/forum.php">安富莱电子论坛</a><br>
-<a href="http://www.armbbs.cn/forum.php?mod=viewthread&amp;tid=17658&amp;extra=page%3D1">FreeRTOS资料下载</a><br>
-<a href="http://www.armbbs.cn/forum.php?mod=viewthread&amp;tid=1788">UCOS资料下载</a></p>
-</li>
-</ol>
-<p>以下链接为自行整理各平台资料，不够全面，仅供参考；<br>
-<a href="https://pan.baidu.com/s/1geCiXUqDkvt1eK0QARbkoQ">各平台例程资料链接</a><br>
-【注意需要提取码，提取码：03c4】</p>
-<h2 id="实时操作系统官网">实时操作系统官网：</h2>
-<p><a href="https://www.freertos.org/">FreeRTOS官网</a><br>
-（此网站为英文版，个人推荐使用谷歌浏览器，支持网页翻译）<br>
-可通过网站了解关于FreeRTOS内核介绍，开发文档，API等说明；</p>
-<p><a href="https://www.rt-thread.org/">RT-THread官网</a><br>
-国产应用比较广泛的实时操作系统，适配插件模块比较全面；<br>
-网站有入门教程，操作说明等信息；</p>
-<h2 id="哔哩哔哩网站视频推荐">哔哩哔哩网站视频推荐：</h2>
-<p><a href="https://www.bilibili.com/video/BV1864y1T7Z7">FreeRTOS开发训练营</a><br>
-基于STM32CubeMX软件讲解FreeRTOS入门；<br>
-<a href="https://space.bilibili.com/317721370">STM32CubeMX教程</a><br>
-该文作者通过STM32CubeMX开发SMT32，手把手演示各个例程，包括FreeRTOS，值得一看；</p>
-<p><a href="https://www.bilibili.com/video/BV1a4411Q7X1">正点原子FreeRTOS视频</a><br>
-<a href="https://www.bilibili.com/video/BV1qx411d75G">正点原子UCOS-III视频</a><br>
-<a href="https://www.bilibili.com/video/BV1Jx411X7NS">野火论坛FreeRTOS视频</a><br>
-<a href="https://www.bilibili.com/video/BV1rt411u7bv">野火论坛UCOS-III视频</a></p>
-]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[STM32F4+串口固件升级（CubeMX）]]></title>
