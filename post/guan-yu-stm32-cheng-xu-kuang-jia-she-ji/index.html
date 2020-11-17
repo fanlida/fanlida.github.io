@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>单片机自适应波特率实现思路 | 范丽达的网页</title>
+<title>关于STM32程序框架设计 | 范丽达的网页</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,14 +24,12 @@
 
 
 
-    <meta name="description" content="自适应波特率思路：
-将串口接收IO电平状态进行定时器计时，计算出最小脉宽时长，即一帧时长，就可算出其波特率值。
-
-缺点：
-类似 00110011 这样的码，无法准确测出；
-引导码最好用 类似0101 0101 这种码；
-最好有相关的引导码，..." />
-    <meta name="keywords" content="STM32" />
+    <meta name="description" content="1.STM32CubeMX生成的代码与添加代码保持分离；
+2.重新生成代码不影响应用代码；
+3.尽量在生成代码外部进行编程，方便移植，修改，删除，不影响生成的代码；
+4.代码简洁有层次，利用C语言面向对象模式编程；
+5.关于C语言面向对象模..." />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div id="app" class="main">
@@ -102,34 +100,32 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">单片机自适应波特率实现思路</h2>
-            <div class="post-date">2020-05-07</div>
+            <h2 class="post-title">关于STM32程序框架设计</h2>
+            <div class="post-date">2020-11-17</div>
             
             <div class="post-content" v-pre>
-              <h3 id="自适应波特率思路">自适应波特率思路：</h3>
-<p>将串口接收IO电平状态进行定时器计时，计算出最小脉宽时长，即一帧时长，就可算出其波特率值。<br>
-<br></p>
-<h3 id="缺点">缺点：</h3>
-<p>类似 00110011 这样的码，无法准确测出；<br>
-引导码最好用 类似0101 0101 这种码；<br>
-最好有相关的引导码，或者加长检测周期；</p>
+              <p>1.STM32CubeMX生成的代码与添加代码保持分离；<br>
+2.重新生成代码不影响应用代码；<br>
+3.尽量在生成代码外部进行编程，方便移植，修改，删除，不影响生成的代码；<br>
+4.代码简洁有层次，利用C语言面向对象模式编程；<br>
+5.关于C语言面向对象模式编程；<br>
+大家都知道C语言是面向过程的编程语言，C++为面向对象模式的编程；我们可以人为的改写我们的C语言编程模式，利用指针和结构体实现类似面向对象的编程；使得我们的程序更加简洁；</p>
+<p>下面让我拿STM32F407+SHTC3温湿度传感器源代码为例，展示下该程序框架；<br>
+<img src="https://fanlida.github.io//post-images/1605615482766.jpg" alt="" loading="lazy"></p>
+<p>接下来展示下IIC驱动程序的写法；<br>
+<img src="https://fanlida.github.io//post-images/1605615937376.jpg" alt="" loading="lazy"><br>
+<img src="https://fanlida.github.io//post-images/1605616055277.jpg" alt="" loading="lazy"></p>
+<p>在编程时，可以进行如下操作；<br>
+<img src="https://fanlida.github.io//post-images/1605616173269.jpg" alt="" loading="lazy"></p>
 
             </div>
-            
-              <div class="tag-container">
-                
-                  <a href="https://fanlida.github.io/tag/ZT5_adjO6/" class="tag">
-                    STM32
-                  </a>
-                
-              </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://fanlida.github.io/post/stm32-nei-cun-qu-fen-pei-jiang-jie/">
+                <a href="https://fanlida.github.io/post/guan-yu-mcu-shi-shi-cao-zuo-xi-tong-zi-liao-zheng-li/">
                   <h3 class="post-title">
-                    STM32内存区分配讲解
+                    关于MCU实时操作系统资料整理
                   </h3>
                 </a>
               </div>
