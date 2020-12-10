@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanlida.github.io/</id>
     <title>范丽达的网页</title>
-    <updated>2020-11-17T12:30:27.697Z</updated>
+    <updated>2020-12-10T14:41:59.944Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanlida.github.io/"/>
     <link rel="self" href="https://fanlida.github.io/atom.xml"/>
@@ -10,6 +10,61 @@
     <logo>https://fanlida.github.io/images/avatar.png</logo>
     <icon>https://fanlida.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 范丽达的网页</rights>
+    <entry>
+        <title type="html"><![CDATA[git和gitee应用]]></title>
+        <id>https://fanlida.github.io/post/git-he-gitee-ying-yong/</id>
+        <link href="https://fanlida.github.io/post/git-he-gitee-ying-yong/">
+        </link>
+        <updated>2020-12-10T14:36:47.000Z</updated>
+        <summary type="html"><![CDATA[<p>一、由于国内环境，github访问速度受限。尝试git配合gitee使用；</p>
+<p>二、推荐Git学习网站：  <a href="https://www.runoob.com/git/git-tutorial.html" target="_blank">访问菜鸟教程!</a></p>
+<p>三、个人使用git配合gitee步骤如下：</p>
+<p>1.找到文件夹，右击Git Bash Here</p>
+<p>2.输入个人信息<br>
+git config --global user.name &quot;FLD&quot;<br>
+git config --global user.email FLD@163.com</p>
+<p>3.在本地项目目录创建本地仓库<br>
+git init</p>
+<p>4.上传代码至本地仓库<br>
+git add . (add后有. 且与.空格分开)</p>
+<p>【知识点】git add . git会递归的将你执行命令时所在的目录中所有文件添加;<br>
+git add * git会自动把你当前目录所有修改过的文件添加;</p>
+<p>5.提交信息<br>
+git commit -m &quot;提交信息&quot;</p>
+<p>6.gitee仓库创建，并获取SSH地址</p>
+<p>7.管理本地仓库并上传代码<br>
+git remote add origin [ssh ID]<br>
+git push origin master</p>
+<p>if error<br>
+先下载再上传<br>
+8. 下载<br>
+git pull origin master --allow-unrelated-histories</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>一、由于国内环境，github访问速度受限。尝试git配合gitee使用；</p>
+<p>二、推荐Git学习网站：  <a href="https://www.runoob.com/git/git-tutorial.html" target="_blank">访问菜鸟教程!</a></p>
+<p>三、个人使用git配合gitee步骤如下：</p>
+<p>1.找到文件夹，右击Git Bash Here</p>
+<p>2.输入个人信息<br>
+git config --global user.name &quot;FLD&quot;<br>
+git config --global user.email FLD@163.com</p>
+<p>3.在本地项目目录创建本地仓库<br>
+git init</p>
+<p>4.上传代码至本地仓库<br>
+git add . (add后有. 且与.空格分开)</p>
+<p>【知识点】git add . git会递归的将你执行命令时所在的目录中所有文件添加;<br>
+git add * git会自动把你当前目录所有修改过的文件添加;</p>
+<p>5.提交信息<br>
+git commit -m &quot;提交信息&quot;</p>
+<p>6.gitee仓库创建，并获取SSH地址</p>
+<p>7.管理本地仓库并上传代码<br>
+git remote add origin [ssh ID]<br>
+git push origin master</p>
+<p>if error<br>
+先下载再上传<br>
+8. 下载<br>
+git pull origin master --allow-unrelated-histories</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[关于STM32程序框架设计]]></title>
         <id>https://fanlida.github.io/post/guan-yu-stm32-cheng-xu-kuang-jia-she-ji/</id>

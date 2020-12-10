@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>关于 | 范丽达的网页</title>
+<title>git和gitee应用 | 范丽达的网页</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,12 +24,12 @@
 
 
 
-    <meta name="description" content="欢迎来到范丽达的网页，很高兴遇见你！
-
-🏠 关于本站
-本站于2020年5月7日由范丽达创建，基于GitHub与Gridea软件实现。创建一个属于自己的网页，随时随地可以记录自己的学习经历。小小的成就激励着我们前进！
-
-👨‍💻 博主是谁..." />
+    <meta name="description" content="一、由于国内环境，github访问速度受限。尝试git配合gitee使用；
+二、推荐Git学习网站：  访问菜鸟教程!
+三、个人使用git配合gitee步骤如下：
+1.找到文件夹，右击Git Bash Here
+2.输入个人信息
+git c..." />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -101,26 +101,85 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">关于</h2>
-            <div class="post-date">2019-01-25</div>
+            <h2 class="post-title">git和gitee应用</h2>
+            <div class="post-date">2020-12-10</div>
             
             <div class="post-content" v-pre>
-              <h3 id="欢迎来到范丽达的网页很高兴遇见你">欢迎来到范丽达的网页，很高兴遇见你！</h3>
-<br>
-<h4 id="关于本站">🏠 关于本站</h4>
-<p>本站于2020年5月7日由范丽达创建，基于GitHub与Gridea软件实现。创建一个属于自己的网页，随时随地可以记录自己的学习经历。小小的成就激励着我们前进！</p>
-<br>
-<h4 id="博主是谁">👨‍💻 博主是谁</h4>
-<p> 博主是范丽达，生于1991年，从事嵌入式软硬件开发工作。</p>
-<br>
-<h4 id="兴趣爱好">⛹ 兴趣爱好</h4>
- <p> 喝酒，吹牛。</p>
-<br>
-<h4 id="联系我呀">📬 联系我呀</h4>
- <p> QQ:965853816 </p>
-<br>
+              <p>一、由于国内环境，github访问速度受限。尝试git配合gitee使用；</p>
+<p>二、推荐Git学习网站：  <a href="https://www.runoob.com/git/git-tutorial.html" target="_blank">访问菜鸟教程!</a></p>
+<p>三、个人使用git配合gitee步骤如下：</p>
+<p>1.找到文件夹，右击Git Bash Here</p>
+<p>2.输入个人信息<br>
+git config --global user.name &quot;FLD&quot;<br>
+git config --global user.email FLD@163.com</p>
+<p>3.在本地项目目录创建本地仓库<br>
+git init</p>
+<p>4.上传代码至本地仓库<br>
+git add . (add后有. 且与.空格分开)</p>
+<p>【知识点】git add . git会递归的将你执行命令时所在的目录中所有文件添加;<br>
+git add * git会自动把你当前目录所有修改过的文件添加;</p>
+<p>5.提交信息<br>
+git commit -m &quot;提交信息&quot;</p>
+<p>6.gitee仓库创建，并获取SSH地址</p>
+<p>7.管理本地仓库并上传代码<br>
+git remote add origin [ssh ID]<br>
+git push origin master</p>
+<p>if error<br>
+先下载再上传<br>
+8. 下载<br>
+git pull origin master --allow-unrelated-histories</p>
+<!-- more -->
+<ol start="9">
+<li>
+<p>git 在pull或者合并分支的时候有时会遇到这个界面。可以不管(直接下面3,4步)，如果要输入解释的话就需要:</p>
+<blockquote>
+<p>1.按键盘字母 i 进入insert模式</p>
+</blockquote>
+<blockquote>
+<p>2.修改最上面那行黄色合并信息,可以不修改</p>
+</blockquote>
+<blockquote>
+<p>3.按键盘左上角&quot;Esc&quot;</p>
+</blockquote>
+<blockquote>
+<p>4.输入&quot;:wq&quot;,注意是冒号+wq,按回车键即可</p>
+</blockquote>
+</li>
+</ol>
+<p>10  git push origin master</p>
+<p>if error:<br>
+src refspec master does not ...<br>
+failed to push some ...</p>
+<pre><code> 原因： 本地仓库为空
+</code></pre>
+<ol>
+<li>
+<p>git add .<br>
+git commit -m &quot;提交信息&quot;</p>
+</li>
+<li>
+<p>git push origin master</p>
+</li>
+<li>
+<p>error:<br>
+git pull -rebase origin master</p>
+</li>
+<li>
+<p>git push origin master</p>
+</li>
+</ol>
+
             </div>
             
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanlida.github.io/post/guan-yu-stm32-cheng-xu-kuang-jia-she-ji/">
+                  <h3 class="post-title">
+                    关于STM32程序框架设计
+                  </h3>
+                </a>
+              </div>
             
 
             
