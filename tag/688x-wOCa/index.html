@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>设备远程维护解决方案 | 范丽达的网页</title>
+<title>github-&gt;git-&gt;gitee-&gt;keil | 范丽达的网页</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -12,26 +12,13 @@
 <link rel="stylesheet" href="https://fanlida.github.io//styles/main.css">
 
 
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
-
 
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 
 
-    <meta name="description" content="由于作者水平有限，以下解决方案还不够成熟。希望对此有见解的人士，不吝赐教！
-
-
-
-
-
-..." />
-    <meta name="keywords" content="" />
+    <meta name="description" content="范丽达的网页">
   </head>
   <body>
     <div id="app" class="main">
@@ -101,40 +88,53 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <div class="post-detail">
-            <h2 class="post-title">设备远程维护解决方案</h2>
-            <div class="post-date">2020-05-07</div>
-            
-            <div class="post-content" v-pre>
-              <p>由于作者水平有限，以下解决方案还不够成熟。希望对此有见解的人士，不吝赐教！<br>
-<br><br>
-<img src="https://fanlida.github.io//post-images/1588859660004.gif" alt="" loading="lazy"><br>
-<img src="https://fanlida.github.io//post-images/1588859677474.gif" alt="" loading="lazy"><br>
-<img src="https://fanlida.github.io//post-images/1588859683482.gif" alt="" loading="lazy"><br>
-<img src="https://fanlida.github.io//post-images/1588859688232.gif" alt="" loading="lazy"></p>
-
-            </div>
-            
-            
-              <div class="next-post">
-                <div class="next">下一篇</div>
-                <a href="https://fanlida.github.io/post/dan-pian-ji-chang-yong-c-yu-yan-biao-zhun-ku/">
-                  <h3 class="post-title">
-                    单片机常用C语言标准库
-                  </h3>
+          <h2 class="current-tag">标签: github-&gt;git-&gt;gitee-&gt;keil</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://fanlida.github.io/post/git-he-gitee-ying-yong/">
+                  <h2 class="post-title">git和gitee应用</h2>
                 </a>
+                <div class="post-date">
+                  2020-12-10
+                </div>
+                <div class="post-abstract">
+                  <p>一、由于国内环境，github访问速度受限。尝试git配合gitee使用；</p>
+<p>二、推荐Git学习网站：  <a href="https://www.runoob.com/git/git-tutorial.html" target="_blank">访问菜鸟教程!</a></p>
+<p>三、个人使用git配合gitee步骤如下：</p>
+<p>1.找到文件夹，右击Git Bash Here</p>
+<p>2.输入个人信息<br>
+git config --global user.name &quot;FLD&quot;<br>
+git config --global user.email FLD@163.com</p>
+<p>3.在本地项目目录创建本地仓库<br>
+git init</p>
+<p>4.上传代码至本地仓库<br>
+git add . (add后有. 且与.空格分开)</p>
+<p>【知识点】git add . git会递归的将你执行命令时所在的目录中所有文件添加;<br>
+git add * git会自动把你当前目录所有修改过的文件添加;</p>
+<p>5.提交信息<br>
+git commit -m &quot;提交信息&quot;</p>
+<p>6.gitee仓库创建，并获取SSH地址</p>
+<p>7.管理本地仓库并上传代码<br>
+git remote add origin [ssh ID]<br>
+git push origin master</p>
+<p>if error<br>
+先下载再上传</p>
+<ol>
+<li>下载<br>
+git pull origin master --allow-unrelated-histories</li>
+</ol>
+
+                </div>
               </div>
-            
-
-            
               
-                <div id="gitalk-container" data-aos="fade-in"></div>
-              
+            </article>
+          
 
-              
-            
-
-          </div>
+          <div class="pagination-container">
+  
+  
+</div>
 
         </div>
       </div>
@@ -155,29 +155,6 @@ var app = new Vue({
 </script>
 
 
-
-
-
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
-
-      var gitalk = new Gitalk({
-        clientID: '',
-        clientSecret: '',
-        repo: 'fanlida.github.io',
-        owner: '',
-        admin: [''],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
-
-      gitalk.render('gitalk-container')
-
-    </script>
-  
-
-  
 
 
 
