@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://fanlida.github.io//favicon.ico?v=1607665228754">
+<link rel="shortcut icon" href="https://fanlida.github.io//favicon.ico?v=1607667497770">
 <link rel="stylesheet" href="https://fanlida.github.io//styles/main.css">
 
 
@@ -24,12 +24,11 @@
 
 
 
-    <meta name="description" content="一、由于国内环境，github访问速度受限。尝试git配合gitee使用；
-二、推荐Git学习网站：  访问菜鸟教程!
-三、个人使用git配合gitee步骤如下：
-1.找到文件夹，右击Git Bash Here
-2.输入个人信息
-git c..." />
+    <meta name="description" content="一. 由于国内网络环境，github访问速度受限。尝试git配合gitee使用；
+二. 推荐Git学习网站：  访问菜鸟教程!  
+三. 个人使用git配合gitee步骤如下：   
+      &nbsp &nbsp
+      1. 找..." />
     <meta name="keywords" content="github->git->gitee->keil" />
   </head>
   <body>
@@ -39,7 +38,7 @@ git c..." />
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://fanlida.github.io/">
-        <img src="https://fanlida.github.io//images/avatar.png?v=1607665228754" class="site-logo">
+        <img src="https://fanlida.github.io//images/avatar.png?v=1607667497770" class="site-logo">
         <h1 class="site-title">范丽达的网页</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -105,72 +104,64 @@ git c..." />
             <div class="post-date">2020-12-10</div>
             
             <div class="post-content" v-pre>
-              <p>一、由于国内环境，github访问速度受限。尝试git配合gitee使用；</p>
-<p>二、推荐Git学习网站：  <a href="https://www.runoob.com/git/git-tutorial.html" target="_blank">访问菜鸟教程!</a></p>
-<p>三、个人使用git配合gitee步骤如下：</p>
-<p>1.找到文件夹，右击Git Bash Here</p>
-<p>2.输入个人信息<br>
-git config --global user.name &quot;FLD&quot;<br>
-git config --global user.email FLD@163.com</p>
-<p>3.在本地项目目录创建本地仓库<br>
-git init</p>
-<p>4.上传代码至本地仓库<br>
-git add . (add后有. 且与.空格分开)</p>
-<p>【知识点】git add . git会递归的将你执行命令时所在的目录中所有文件添加;<br>
-git add * git会自动把你当前目录所有修改过的文件添加;</p>
-<p>5.提交信息<br>
-git commit -m &quot;提交信息&quot;</p>
-<p>6.gitee仓库创建，并获取SSH地址</p>
-<p>7.管理本地仓库并上传代码<br>
-git remote add origin [ssh ID]<br>
-git push origin master</p>
-<p>if error<br>
-先下载再上传</p>
-<ol>
-<li>下载<br>
-git pull origin master --allow-unrelated-histories</li>
+              <p>一. 由于国内网络环境，github访问速度受限。尝试git配合gitee使用；</p>
+<p>二. 推荐Git学习网站：  <a href="https://www.runoob.com/git/git-tutorial.html" target="_blank">访问菜鸟教程!</a>  </p>
+<p>三. 个人使用git配合gitee步骤如下： <br />  <br />
+      &nbsp &nbsp
+      1. 找到文件夹，右击Git Bash Here
+       <br />  <br /> &nbsp &nbsp 
+      2. 输入个人信息<br />&nbsp &nbsp &nbsp &nbsp 
+          git config --global user.name "FLD"<br />&nbsp &nbsp &nbsp &nbsp 
+          git config --global user.email FLD@163.com
+           <br />  <br /> &nbsp &nbsp 
+      3. 在本地项目目录创建本地仓库<br />&nbsp &nbsp &nbsp &nbsp   
+          git init
+           <br />  <br /> &nbsp &nbsp 
+      4. 上传代码至本地仓库<br />&nbsp &nbsp &nbsp &nbsp 
+          git add . (add后有. 且与.空格分开)<br />&nbsp &nbsp &nbsp &nbsp 
+          知识点：                        <br />&nbsp &nbsp &nbsp &nbsp &nbsp 
+          git add . git会递归的将你执行命令时所在的目录中所有文件添加;
+          <br />&nbsp &nbsp &nbsp &nbsp &nbsp 
+          git add * git会自动把你当前目录所有修改过的文件添加;
+          <br />  <br /> &nbsp &nbsp
+       5. 提交信息<br />&nbsp &nbsp &nbsp &nbsp 
+          git commit -m "提交信息"
+          <br />  <br /> &nbsp &nbsp  
+       6. gitee仓库创建，并获取SSH地址
+           <br />  <br /> &nbsp &nbsp
+       7. 管理本地仓库并上传代码              <br />&nbsp &nbsp &nbsp &nbsp 
+         git remote add origin [ssh ID]   <br />&nbsp &nbsp &nbsp &nbsp 
+         git push origin master
+         <br />  <br /> &nbsp &nbsp
+      if error<br />&nbsp &nbsp &nbsp &nbsp 
+          先下载再上传<br />&nbsp &nbsp 
+        8. 下载<br />&nbsp &nbsp &nbsp &nbsp 
+            git pull origin master --allow-unrelated-histories
+            <br />&nbsp &nbsp 
+   9. git 在pull或者合并分支的时候有时会遇到这个界面。可以不管(直接下面3,4步)，如果要输入解释的话就需要:
+<pre><code>&gt;1.按键盘字母 i 进入insert模式
+
+&gt;2.修改最上面那行黄色合并信息,可以不修改
+
+&gt;3.按键盘左上角&quot;Esc&quot;
+
+&gt;4.输入&quot;:wq&quot;,注意是冒号+wq,按回车键即可
+</code></pre>
+<ol start="10">
+<li>git push origin master</li>
 </ol>
-<!-- more -->
-<ol start="9">
-<li>
-<p>git 在pull或者合并分支的时候有时会遇到这个界面。可以不管(直接下面3,4步)，如果要输入解释的话就需要:</p>
-<blockquote>
-<p>1.按键盘字母 i 进入insert模式</p>
-</blockquote>
-<blockquote>
-<p>2.修改最上面那行黄色合并信息,可以不修改</p>
-</blockquote>
-<blockquote>
-<p>3.按键盘左上角&quot;Esc&quot;</p>
-</blockquote>
-<blockquote>
-<p>4.输入&quot;:wq&quot;,注意是冒号+wq,按回车键即可</p>
-</blockquote>
-</li>
-</ol>
-<p>10  git push origin master</p>
 <p>if error:<br>
 src refspec master does not ...<br>
 failed to push some ...</p>
 <pre><code> 原因： 本地仓库为空
 </code></pre>
-<ol>
-<li>
-<p>git add .<br>
+<p>(1) git add .<br>
 git commit -m &quot;提交信息&quot;</p>
-</li>
-<li>
-<p>git push origin master</p>
-</li>
-<li>
-<p>error:<br>
+<p>(2)  git push origin master</p>
+<p>(3)  error:<br>
 git pull -rebase origin master</p>
-</li>
-<li>
-<p>git push origin master</p>
-</li>
-</ol>
-
+<p>(4)  git push origin master</p>
+</p> 
             </div>
             
               <div class="tag-container">
