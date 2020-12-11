@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>STM32 | 范丽达的网页</title>
+<title>MQTT协议学习笔记 | 范丽达的网页</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -12,13 +12,21 @@
 <link rel="stylesheet" href="https://fanlida.github.io//styles/main.css">
 
 
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
 
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 
 
-    <meta name="description" content="范丽达的网页">
+    <meta name="description" content="待更新
+" />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div id="app" class="main">
@@ -88,74 +96,35 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="current-tag">标签: STM32</h2>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://fanlida.github.io/post/guan-yu-mcu-shi-shi-cao-zuo-xi-tong-zi-liao-zheng-li/">
-                  <h2 class="post-title">关于MCU实时操作系统资料整理</h2>
-                </a>
-                <div class="post-date">
-                  2020-07-26
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://fanlida.github.io/post/dan-pian-ji-chang-yong-c-yu-yan-biao-zhun-ku/">
-                  <h2 class="post-title">单片机常用C语言标准库</h2>
-                </a>
-                <div class="post-date">
-                  2020-05-07
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://fanlida.github.io/post/dan-pian-ji-zi-gua-ying-bo-te-lu-shi-xian-si-lu/">
-                  <h2 class="post-title">单片机自适应波特率实现思路</h2>
-                </a>
-                <div class="post-date">
-                  2020-05-07
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://fanlida.github.io/post/stm32-nei-cun-qu-fen-pei-jiang-jie/">
-                  <h2 class="post-title">STM32内存区分配讲解</h2>
-                </a>
-                <div class="post-date">
-                  2020-05-07
-                </div>
-                <div class="post-abstract">
-                  <figure data-type="image" tabindex="1"><img src="https://fanlida.github.io//post-images/1598237137547.jpg" alt="" loading="lazy"></figure>
+          <div class="post-detail">
+            <h2 class="post-title">MQTT协议学习笔记</h2>
+            <div class="post-date">2020-12-11</div>
+            
+            <div class="post-content" v-pre>
+              <p>待更新</p>
 
-                </div>
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanlida.github.io/post/git-he-gitee-ying-yong/">
+                  <h3 class="post-title">
+                    git和gitee应用
+                  </h3>
+                </a>
               </div>
-              
-            </article>
-          
+            
 
-          <div class="pagination-container">
-  
-  
-</div>
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
 
         </div>
       </div>
@@ -176,6 +145,29 @@ var app = new Vue({
 </script>
 
 
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'fanlida.github.io',
+        owner: '',
+        admin: [''],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
 
 
 
