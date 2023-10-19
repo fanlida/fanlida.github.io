@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Markdown文件展示</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+  <style>
+    .content {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <ul>
+      <li><a href="#" onclick="loadMarkdown('CodeNotes.md')">文件1</a></li>
+      <li><a href="#" onclick="loadMarkdown('CodeNotes.md')">文件2</a></li>
+      <li><a href="#" onclick="loadMarkdown('CodeNotes.md')">文件3</a></li>
+    </ul>
+    <div id="markdown"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+  <script>
+    marked.setOptions({
+      highlight: function(code, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+          return hljs.highlight(lang, code).value;
+        } else {
+          return hljs.highlightAuto(code).value;
+        }
+      }
+    });
+
+    function loadMarkdown(mdFile) {
+      fetch(mdFile)
+        .then(response => response.text())
+        .then(data => {
+          var markdownContainer = document.getElementById('markdown');
+          markdownContainer.innerHTML = marked(data);
+          hljs.highlightAll();
+        });
+    }
+  </script>
+</body>
+</html>
